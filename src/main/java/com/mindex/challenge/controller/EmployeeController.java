@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import com.mindex.challenge.data.ReportingStructure;
+import com.mindex.challenge.exception.EmployeeNotFoundException;
+
 
 @RestController
 public class EmployeeController {
@@ -27,17 +30,24 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/{id}")
-    public Employee read(@PathVariable String id) {
+    public Employee read(@PathVariable String id) throws EmployeeNotFoundException {    
         LOG.debug("Received employee create request for id [{}]", id);
 
         return employeeService.read(id);
     }
 
     @PutMapping("/employee/{id}")
-    public Employee update(@PathVariable String id, @RequestBody Employee employee) {
+    public Employee update(@PathVariable String id, @RequestBody Employee employee) throws EmployeeNotFoundException {
         LOG.debug("Received employee create request for id [{}] and employee [{}]", id, employee);
 
         employee.setEmployeeId(id);
         return employeeService.update(employee);
+    }
+
+    @GetMapping("/employee/{id}/reporting-structure")
+    public ReportingStructure getReportingStructure(@PathVariable String id) throws EmployeeNotFoundException {
+        LOG.debug("Received reporting structure request for id [{}]", id);
+
+        return employeeService.getReportingStructure(id);
     }
 }
