@@ -16,8 +16,8 @@ public class ReportingStructure {
     /**
      * Constructs a ReportingStructure with the given employee and report count.
      *
-     * @param employee The employee for which the reporting structure is being created
-     * @param numberOfReports The total number of defined reports under this employee
+     * @param employee The employee for the reporting structure
+     * @param numberOfReports The total number of reports under this employee
      */
     public ReportingStructure(Employee employee, int numberOfReports) {
         this.employee = employee;
@@ -28,7 +28,7 @@ public class ReportingStructure {
     // Getters and Setters with JavaDoc
 
     /**
-     * @return The employee this reporting structure refers to
+     * @return The employee the reporting structure refers to
      */
     public Employee getEmployee() {
         return employee;
@@ -42,7 +42,7 @@ public class ReportingStructure {
     }
 
     /**
-     * @return The total number of defined reports under this employee
+     * @return The total number of reports under this employee
      */
     public int getNumberOfReports() {
         return numberOfReports;
