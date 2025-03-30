@@ -42,13 +42,25 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
      */
     @Override
     public ReportingStructure getReportingStructure(String employeeId) throws EmployeeNotFoundException {
-        LOG.debug("Generating reporting structure for employee id [{}]", employeeId);
+        // LOG the start of the reporting structure calculation
+        LOG.debug("Building reporting structure for employee ID: {}", employeeId);
+
+        // added for looks
+        long startTime = System.currentTimeMillis();
         
-        // Use employeeService.read() instead of repository directly
+        // get the employee from the EmployeeService
         Employee employee = employeeService.read(employeeId);
+
         Employee resolvedEmployee = resolveEmployeeHierarchy(employee);
         int numberOfReports = calculateTotalReports(resolvedEmployee);
-
+        
+        // Performance metrics
+        LOG.debug("Completed structure for {} {} - Total Reports: {} ({} ms)", 
+            employee.getFirstName(),
+            employee.getLastName(),
+            numberOfReports,
+            System.currentTimeMillis() - startTime);
+        
         return new ReportingStructure(resolvedEmployee, numberOfReports);
     }
 
@@ -62,7 +74,9 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
      * @implNote This method performs a depth-first traversal of the reporting structure
      */
     private Employee resolveEmployeeHierarchy(Employee employee) throws EmployeeNotFoundException {
+        // Empty employee to set the given employee attributes
         Employee resolved = new Employee();
+
         // Copy all of the basic fields
         resolved.setEmployeeId(employee.getEmployeeId());
         resolved.setFirstName(employee.getFirstName());
@@ -70,15 +84,17 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
         resolved.setPosition(employee.getPosition());
         resolved.setDepartment(employee.getDepartment());
 
+        // Resolve direct reports recursively
         if (employee.getDirectReports() != null) {
             resolved.setDirectReports(
                 employee.getDirectReports().stream()
                     .map(report -> {
                         try {
-                            //  resolve each direct report using employeeService
-                            return resolveEmployeeHierarchy(employeeService.read(report.getEmployeeId()));
+                            // Fetch and resolve each report
+                            Employee fullReport = employeeService.read(report.getEmployeeId());
+                            return resolveEmployeeHierarchy(fullReport);
                         } catch (EmployeeNotFoundException e) {
-                            LOG.warn("Missing employee reference in reporting chain: {}", report.getEmployeeId());
+                            LOG.warn("Missing employee in reporting chain: {}", report.getEmployeeId());
                             return null;
                         }
                     })
@@ -86,6 +102,7 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
                     .toList()
             );
         }
+
         return resolved;
     }
 
