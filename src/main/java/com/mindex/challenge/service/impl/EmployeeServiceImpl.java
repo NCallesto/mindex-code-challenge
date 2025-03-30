@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 import com.mindex.challenge.exception.EmployeeNotFoundException;
 
+/**
+ * Implementation of the EmployeeService interface.
+ * Provides business logic for employee operations including CRUD and reporting structure.
+ */
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -19,6 +23,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Employee create(Employee employee) {
         LOG.debug("Creating employee [{}]", employee);
@@ -29,6 +36,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
+    /**
+     * {@inheritDoc}
+     * @throws EmployeeNotFoundException if no employee exists with the given ID
+     */
     @Override
     public Employee read(String id) throws EmployeeNotFoundException {
         LOG.debug("Creating employee with id [{}]", id);
@@ -42,6 +53,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
+    /**
+     * {@inheritDoc}
+     * @throws EmployeeNotFoundException if no employee exists with the given ID
+     */
     @Override
     public Employee update(Employee employee) throws EmployeeNotFoundException {
         LOG.debug("Updating employee [{}]", employee);
@@ -56,6 +71,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     /**
      * {@inheritDoc}
+     * @throws EmployeeNotFoundException if no employee exists with the given ID
      */
     @Override
     public ReportingStructure getReportingStructure(String employeeID) throws EmployeeNotFoundException {
@@ -74,7 +90,8 @@ public class EmployeeServiceImpl implements EmployeeService {
      * Recursively calculates the total number of reports under an employee.
      * 
      * @param employee The employee to calculate reports for
-     * @return The total number of reports
+     * @return Total number of reports under this employee
+     * @implNote This method uses depth-first when going through the reporting hierarchy
      */
     private int calculateNumberOfReports(Employee employee) {
         // Base case: there are no direct reports
