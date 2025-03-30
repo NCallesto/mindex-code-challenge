@@ -8,6 +8,11 @@ group = 'com.mindex'
 version = '0.0.1-SNAPSHOT'
 
 java {
+    // automatically finds and uses JDK 17 on my system
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+
     sourceCompatibility = '17'
 }
 
