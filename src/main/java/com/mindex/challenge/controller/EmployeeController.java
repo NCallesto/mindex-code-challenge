@@ -100,9 +100,10 @@ public class EmployeeController {
     @PutMapping("/{id}")
     public Employee update(@PathVariable String id, @RequestBody Employee employee) throws EmployeeNotFoundException {
         // LOG the ID and updated data when updating an employee
-        LOG.debug("Updating employee ID: {} with data - FirstName: {}, Position: {}, Department: {}",
+        LOG.debug("Updating employee ID: {} with data - FullName: {} {}, Position: {}, Department: {}",
             id,
             employee.getFirstName(),
+            employee.getLastName(),
             employee.getPosition(),
             employee.getDepartment());
         
@@ -113,9 +114,12 @@ public class EmployeeController {
         Employee updated = employeeService.update(employee);
 
         // LOG the updated employee's details after updating
-        LOG.info("Successfully updated employee - ID: {}, New Position: {}",
+        LOG.info("Successfully updated employee ID: {} with data - FullName: {} {}, Position: {}, Department: {}",
             id,
-            updated.getPosition());
+            updated.getFirstName(),
+            updated.getLastName(),
+            updated.getPosition(),
+            updated.getDepartment());
 
         // Return the updated employee
         return updated;
