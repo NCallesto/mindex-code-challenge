@@ -1,13 +1,11 @@
 package com.mindex.challenge.service;
 
 import com.mindex.challenge.data.Employee;
-import com.mindex.challenge.data.ReportingStructure;
 import com.mindex.challenge.exception.EmployeeNotFoundException;
 
 /**
- * Service interface for all of the employee operations.
- * Defines the contract for employee management including the CRUD operations
- * and reporting structure calculations.
+ * Service interface for create, read, and update employee operations.
+ * Defines the contract for employee management including the CRUD operations.
  */
 public interface EmployeeService {
     /**
@@ -43,16 +41,4 @@ public interface EmployeeService {
      * @see #read(String) 
      */
     Employee update(Employee employee) throws EmployeeNotFoundException;
-
-    /**
-     * Retrieves the complete reporting structure for a given employee.
-     * 
-     * @param employeeId The ID of the employee to get the reporting structure for
-     * @return A ReportingStructure object with the employee and their total reports
-     * @throws EmployeeNotFoundException if the employee is not found
-     * @throws IllegalArgumentException if the employeeId format is invalid
-     * @apiNote The numberOfReports is calculated dynamically each time this is called
-     * @example For employee A with reports B and C (who has report D), it returns a count of 3
-     */
-    ReportingStructure getReportingStructure(String employeeID) throws EmployeeNotFoundException;
 }
