@@ -18,6 +18,7 @@ import com.mindex.challenge.service.EmployeeService;
 /**
  * Implementation of the CompensationService interface.
  * Handles business logic for compensation operations including validation and persistence.
+ * Ensures proper employee reference and compensation uniqueness.
  */
 @Service
 public class CompensationServiceImpl implements CompensationService {
@@ -46,7 +47,7 @@ public class CompensationServiceImpl implements CompensationService {
         Employee employee = employeeService.read(employeeId);
 
         // Check if compensation already exists
-        Compensation existing = compensationRepository.findByEmployeeId(employeeId);
+        Compensation existing = compensationRepository.findByEmployeeEmployeeId(employeeId);
         if (existing != null) {
             LOG.warn("Compensation already exists for employee ID: {}", employeeId);
             throw new IllegalArgumentException("Compensation already exists for this employee");
@@ -71,7 +72,7 @@ public class CompensationServiceImpl implements CompensationService {
         // Validate employee exists
         employeeService.read(employeeId);
 
-        Compensation compensation = compensationRepository.findByEmployeeId(employeeId);
+        Compensation compensation = compensationRepository.findByEmployeeEmployeeId(employeeId);
         if (compensation == null) {
             LOG.warn("No compensation found for employee ID: {}", employeeId);
             throw new CompensationNotFoundException("No compensation found for employee: " + employeeId);
