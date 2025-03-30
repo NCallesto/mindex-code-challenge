@@ -2,7 +2,6 @@ package com.mindex.challenge.service.impl;
 
 import com.mindex.challenge.dao.EmployeeRepository;
 import com.mindex.challenge.data.Employee;
-import com.mindex.challenge.data.ReportingStructure;
 import com.mindex.challenge.service.EmployeeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,7 @@ import com.mindex.challenge.exception.EmployeeNotFoundException;
 
 /**
  * Implementation of the EmployeeService interface.
- * Provides business logic for employee operations including CRUD and reporting structure.
+ * Provides business logic for employee operations including CRUD.
  */
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -67,43 +66,5 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         return employeeRepository.save(employee);
-    }
-
-    /**
-     * {@inheritDoc}
-     * @throws EmployeeNotFoundException if no employee exists with the given ID
-     */
-    @Override
-    public ReportingStructure getReportingStructure(String employeeID) throws EmployeeNotFoundException {
-        LOG.debug("Creating reporting structure for employee id [{}]", employeeID);
-        
-        // Get the employee or throw EmployeeNotFoundException if not found
-        Employee employee = read(employeeID);
-        
-        // Calculate total reports recursively with the calculateNumberOfReports helper method
-        int numberOfReports = calculateNumberOfReports(employee);
-        
-        return new ReportingStructure(employee, numberOfReports);
-    }
-
-    /**
-     * Recursively calculates the total number of reports under an employee.
-     * 
-     * @param employee The employee to calculate reports for
-     * @return Total number of reports under this employee
-     * @implNote This method uses depth-first when going through the reporting hierarchy
-     */
-    private int calculateNumberOfReports(Employee employee) {
-        // Base case: there are no direct reports
-        if (employee.getDirectReports() == null) {
-            return 0;
-        }
-        
-        int count = 0;
-        for (Employee directReport : employee.getDirectReports()) {
-            // Count this employee plus all of their reports
-            count += 1 + calculateNumberOfReports(directReport);
-        }
-        return count;
     }
 }
