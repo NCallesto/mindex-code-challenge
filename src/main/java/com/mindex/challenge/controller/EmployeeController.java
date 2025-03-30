@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.mindex.challenge.data.ReportingStructure;
 import com.mindex.challenge.exception.EmployeeNotFoundException;
 
 /**
  * REST controller for employee-related operations.
- * Exposes endpoints for CRUD operations and reporting structure.
+ * Exposes endpoints for CRUD operations.
  */
 @RestController
 public class EmployeeController {
@@ -66,20 +65,5 @@ public class EmployeeController {
 
         employee.setEmployeeId(id);
         return employeeService.update(employee);
-    }
-
-    /**
-     * Gets the reporting structure for an employee.
-     * 
-     * @param id ID of the employee to get reporting structure for
-     * @return Complete reporting structure with employee and report count
-     * @throws EmployeeNotFoundException if no employee exists with the given ID
-     * @apiNote The report count is calculated dynamically and is not persisted
-     */
-    @GetMapping("/employee/{id}/reporting-structure")
-    public ReportingStructure getReportingStructure(@PathVariable String id) throws EmployeeNotFoundException {
-        LOG.debug("Received reporting structure request for employee id [{}]", id);
-
-        return employeeService.getReportingStructure(id);
     }
 }
