@@ -75,14 +75,34 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public Employee update(Employee updatedEmployee) throws EmployeeNotFoundException {
-        // Get the employees existing record
+        boolean changed = false;
+
+        // Get the existing employee record
         Employee existing = employeeRepository.findByEmployeeId(updatedEmployee.getEmployeeId());
 
-        // Detect any changes with the getChangesFields method
+        // Detect any changes with the getChangedFields method
         Map<String, String> changes = existing.getChangedFields(updatedEmployee);
-        
+
+        // Merge changes from updatedEmployee into existing employee
+        if (updatedEmployee.getFirstName() != null) {
+            existing.setFirstName(updatedEmployee.getFirstName());
+        }
+        if (updatedEmployee.getLastName() != null) {
+            existing.setLastName(updatedEmployee.getLastName());
+        }
+        if (updatedEmployee.getPosition() != null) {
+            existing.setPosition(updatedEmployee.getPosition());
+        }
+        if (updatedEmployee.getDepartment() != null) {
+            existing.setDepartment(updatedEmployee.getDepartment());
+        }
+        if (updatedEmployee.getDirectReports() != null) {
+            existing.setDirectReports(updatedEmployee.getDirectReports());
+        }
+
         // Log based on what was changed
         if (!changes.isEmpty()) {
+            changed = true;
             LOG.debug("Updating employee: {}. Changes: {}",
                 updatedEmployee.getEmployeeId(),
                 changes.entrySet().stream()
@@ -93,15 +113,16 @@ public class EmployeeServiceImpl implements EmployeeService {
             LOG.warn("No changes detected for employee: {}", updatedEmployee.getEmployeeId());
         }
 
-        // Then save updated employee
-        Employee saved = employeeRepository.save(updatedEmployee);
+        // Save the merged employee
+        Employee saved = employeeRepository.save(existing);
 
-        // Log the updated employee details
-        LOG.info("Employee {} updated. Modified fields: {}", 
-            saved.getEmployeeId(), 
-            String.join(", ", changes.keySet()));
+        // Log the updated employee details if there were changes
+        if(changed) {
+            LOG.info("Employee {} updated. Modified fields: {}", 
+                saved.getEmployeeId(), 
+                String.join(", ", changes.keySet()));
+        }
         
-        // return the saved employee
         return saved;
     }
 }

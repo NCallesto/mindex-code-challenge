@@ -43,7 +43,7 @@ public class EmployeeController {
      */
     @PostMapping("")
     public Employee create(@RequestBody Employee request) {
-        // For logginsg purposes
+        // For logging purposes
         boolean reports = false;
 
         // LOG the request to create an employe
@@ -135,6 +135,11 @@ public class EmployeeController {
         LOG.debug("Update request for ID: {}. Submitted fields: {}", 
             id,
             String.join(", ", employee.getNonNullFields()));
+
+        // Check that the request has at least one field to update
+        if (employee.getNonNullFields().isEmpty()) {
+            throw new IllegalArgumentException("No fields provided for update");
+        }
             
         // Set the employee ID
         employee.setEmployeeId(id);
