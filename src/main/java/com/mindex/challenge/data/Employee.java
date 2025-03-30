@@ -73,16 +73,16 @@ public class Employee {
         Map<String, String> changes = new HashMap<>();
 
         if (!Objects.equals(this.firstName, other.firstName)) {
-            changes.put("firstName", this.firstName + "→" + other.firstName);
+            changes.put("firstName", this.firstName + " → " + other.firstName);
         }
         if (!Objects.equals(this.lastName, other.lastName)) {
-            changes.put("lastName", this.lastName + "→" + other.lastName);
+            changes.put("lastName", this.lastName + " → " + other.lastName);
         }
         if (!Objects.equals(this.position, other.position)) {
-            changes.put("position", this.position + "→" + other.position);
+            changes.put("position", this.position + " → " + other.position);
         }
         if (!Objects.equals(this.department, other.department)) {
-            changes.put("department", this.department + "→" + other.department);
+            changes.put("department", this.department + " → " + other.department);
         }
         
         return changes;
