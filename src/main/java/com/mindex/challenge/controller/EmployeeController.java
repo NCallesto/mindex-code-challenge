@@ -30,8 +30,7 @@ public class EmployeeController {
     private final ReportingStructureService reportingStructureService;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, 
-                            ReportingStructureService reportingStructureService) {
+    public EmployeeController(EmployeeService employeeService, ReportingStructureService reportingStructureService) {
         this.employeeService = employeeService;
         this.reportingStructureService = reportingStructureService;
     }
