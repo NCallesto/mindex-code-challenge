@@ -1,6 +1,9 @@
 package com.mindex.challenge.data;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class Employee {
     private String employeeId;
@@ -59,5 +62,29 @@ public class Employee {
 
     public void setDirectReports(List<Employee> directReports) {
         this.directReports = directReports;
+    }
+
+    /**
+     * Identifies any changed fields between this and another employee
+     * @param other The updated employee object
+     * @return Map of changed fields (key: field name, value: old→new values)
+     */
+    public Map<String, String> getChangedFields(Employee other) {
+        Map<String, String> changes = new HashMap<>();
+
+        if (!Objects.equals(this.firstName, other.firstName)) {
+            changes.put("firstName", this.firstName + "→" + other.firstName);
+        }
+        if (!Objects.equals(this.lastName, other.lastName)) {
+            changes.put("lastName", this.lastName + "→" + other.lastName);
+        }
+        if (!Objects.equals(this.position, other.position)) {
+            changes.put("position", this.position + "→" + other.position);
+        }
+        if (!Objects.equals(this.department, other.department)) {
+            changes.put("department", this.department + "→" + other.department);
+        }
+        
+        return changes;
     }
 }
