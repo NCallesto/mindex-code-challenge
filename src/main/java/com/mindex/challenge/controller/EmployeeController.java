@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mindex.challenge.data.Employee;
-import com.mindex.challenge.service.EmployeeService;
 import com.mindex.challenge.data.ReportingStructure;
-import com.mindex.challenge.service.ReportingStructureService;
 import com.mindex.challenge.exception.EmployeeNotFoundException;
+import com.mindex.challenge.service.EmployeeService;
+import com.mindex.challenge.service.ReportingStructureService;
 
 /**
  * REST controller for employee-related operations.
