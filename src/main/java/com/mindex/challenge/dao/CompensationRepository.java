@@ -8,14 +8,15 @@ import com.mindex.challenge.data.Compensation;
 /**
  * MongoDB repository for Compensation entities.
  * Provides basic CRUD operations and custom query methods for Compensation data.
+ * Uses the employee's ID field for querying compensation records.
  */
 @Repository
 public interface CompensationRepository extends MongoRepository<Compensation, String> {
     /**
-     * Finds compensation by employee ID.
+     * Finds compensation by the referenced employee's ID.
      *
      * @param employeeId The ID of the employee to find compensation for
      * @return The Compensation object or null if not found
      */
-    Compensation findByEmployeeId(String employeeId);
+    Compensation findByEmployeeEmployeeId(String employeeId);
 }
