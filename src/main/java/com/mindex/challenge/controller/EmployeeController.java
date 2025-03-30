@@ -43,9 +43,24 @@ public class EmployeeController {
      */
     @PostMapping("")
     public Employee create(@RequestBody Employee employee) {
-        LOG.debug("Received employee create request for [{}]", employee);
+        // LOG all employee details when creating a new employee
+        LOG.debug("Creating new employee - FirstName: {}, LastName: {}, Position: {}, Department: {}", 
+            employee.getFirstName(),
+            employee.getLastName(),
+            employee.getPosition(),
+            employee.getDepartment());
+    
+        // Create the employee using the EmployeeService
+        Employee created = employeeService.create(employee);
 
-        return employeeService.create(employee);
+        // LOG the created employee's details
+        LOG.info("Successfully created employee - ID: {}, FullName: {} {}", 
+            created.getEmployeeId(),
+            created.getFirstName(),
+            created.getLastName());
+
+        // Return the created employee
+        return created;
     }
 
     /**
@@ -56,10 +71,22 @@ public class EmployeeController {
      * @throws EmployeeNotFoundException if no employee exists with the given ID
      */
     @GetMapping("/{id}")
-    public Employee read(@PathVariable String id) throws EmployeeNotFoundException {    
-        LOG.debug("Received employee read request for id [{}]", id);
+    public Employee read(@PathVariable String id) throws EmployeeNotFoundException {  
+        // LOG the ID when fetching an employee
+        LOG.debug("Fetching employee with ID: {}", id);
+    
+        // Read the employee using the EmployeeService
+        Employee employee = employeeService.read(id);
 
-        return employeeService.read(id);
+        // LOG the employee's details after fetching
+        LOG.debug("Found employee - ID: {}, FullName: {} {}, Position: {}",
+            employee.getEmployeeId(),
+            employee.getFirstName(),
+            employee.getLastName(),
+            employee.getPosition());
+
+        // Return the fetched employee
+        return employee;
     }
 
     /**
@@ -72,10 +99,26 @@ public class EmployeeController {
      */
     @PutMapping("/{id}")
     public Employee update(@PathVariable String id, @RequestBody Employee employee) throws EmployeeNotFoundException {
-        LOG.debug("Received employee update request for id [{}] and employee [{}]", id, employee);
-
+        // LOG the ID and updated data when updating an employee
+        LOG.debug("Updating employee ID: {} with data - FirstName: {}, Position: {}, Department: {}",
+            id,
+            employee.getFirstName(),
+            employee.getPosition(),
+            employee.getDepartment());
+        
+        // Set the employee ID in the request body to make sure it matches the path variable
         employee.setEmployeeId(id);
-        return employeeService.update(employee);
+
+        // Update the employee using the EmployeeService
+        Employee updated = employeeService.update(employee);
+
+        // LOG the updated employee's details after updating
+        LOG.info("Successfully updated employee - ID: {}, New Position: {}",
+            id,
+            updated.getPosition());
+
+        // Return the updated employee
+        return updated;
     }
 
     /**
@@ -89,7 +132,19 @@ public class EmployeeController {
      */
     @GetMapping("/{id}/reporting-structure")
     public ReportingStructure getReportingStructure(@PathVariable String id) throws EmployeeNotFoundException {
-        LOG.debug("Received reporting structure request for employee id [{}]", id);
-        return reportingStructureService.getReportingStructure(id);
+        // LOG the ID when generating the reporting structure
+        LOG.debug("Generating reporting structure for employee ID: {}", id);
+
+        // Generate the reporting structure using the ReportingStructureService
+        ReportingStructure structure = reportingStructureService.getReportingStructure(id);
+
+        // LOG the employee's details and total number of reports in the structure
+        LOG.info("Generated reporting structure - Employee: {} {}, Total Reports: {}",
+            structure.getEmployee().getFirstName(),
+            structure.getEmployee().getLastName(),
+            structure.getNumberOfReports());
+
+        // Return the generated reporting structure
+        return structure;
     }
 }
