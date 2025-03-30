@@ -1,5 +1,6 @@
 package com.mindex.challenge.data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,25 +67,39 @@ public class Employee {
 
     /**
      * Identifies any changed fields between this and another employee
-     * @param other The updated employee object
+     * @param updated The updated employee object
      * @return Map of changed fields (key: field name, value: old→new values)
      */
-    public Map<String, String> getChangedFields(Employee other) {
+    public Map<String, String> getChangedFields(Employee updated) {
         Map<String, String> changes = new HashMap<>();
-
-        if (!Objects.equals(this.firstName, other.firstName)) {
-            changes.put("firstName", this.firstName + " → " + other.firstName);
+        
+        // Only compare fields that were explicitly set in the update
+        if (updated.getFirstName() != null && !Objects.equals(this.firstName, updated.getFirstName())) {
+            changes.put("firstName", this.firstName + " -> " + updated.getFirstName());
         }
-        if (!Objects.equals(this.lastName, other.lastName)) {
-            changes.put("lastName", this.lastName + " → " + other.lastName);
+        if (updated.getLastName() != null && !Objects.equals(this.lastName, updated.getLastName())) {
+            changes.put("lastName", this.lastName + " -> " + updated.getLastName());
         }
-        if (!Objects.equals(this.position, other.position)) {
-            changes.put("position", this.position + " → " + other.position);
+        if (updated.getPosition() != null && !Objects.equals(this.position, updated.getPosition())) {
+            changes.put("position", this.position + " -> " + updated.getPosition());
         }
-        if (!Objects.equals(this.department, other.department)) {
-            changes.put("department", this.department + " → " + other.department);
+        if (updated.getDepartment() != null && !Objects.equals(this.department, updated.getDepartment())) {
+            changes.put("department", this.department + " -> " + updated.getDepartment());
         }
         
         return changes;
+    }
+
+    /**
+     * Returns names of non-null fields in the current object.
+     * Useful for logging partial updates in the controller.
+     */
+    public List<String> getNonNullFields() {
+        List<String> fields = new ArrayList<>();
+        if (this.firstName != null) fields.add("firstName");
+        if (this.lastName != null) fields.add("lastName");
+        if (this.position != null) fields.add("position");
+        if (this.department != null) fields.add("department");
+        return fields;
     }
 }

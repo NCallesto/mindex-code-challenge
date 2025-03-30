@@ -43,21 +43,19 @@ public class EmployeeController {
      */
     @PostMapping("")
     public Employee create(@RequestBody Employee employee) {
-        // LOG all employee details when creating a new employee
-        LOG.debug("Creating new employee - FirstName: {}, LastName: {}, Position: {}, Department: {}", 
-            employee.getFirstName(),
-            employee.getLastName(),
-            employee.getPosition(),
-            employee.getDepartment());
+        // LOG the request to create an employee with the provided fields map
+        LOG.debug("Creating employee with ID: {}", employee.getEmployeeId());   
     
         // Create the employee using the EmployeeService
         Employee created = employeeService.create(employee);
 
-        // LOG the created employee's details
-        LOG.info("Successfully created employee - ID: {}, FullName: {} {}", 
-            created.getEmployeeId(),
-            created.getFirstName(),
-            created.getLastName());
+        // Log the employee's full details after creation
+        LOG.info("Created employee - ID: {}, FullName: {} {}, Position: {}, Department: {}",
+            created.getEmployeeId() != null ? created.getEmployeeId() : "",
+            created.getFirstName() != null ? created.getFirstName() : "",
+            created.getLastName() != null ? created.getLastName() : "",
+            created.getPosition() != null ? created.getPosition() : "",
+            created.getDepartment() != null ? created.getDepartment() : "");
 
         // Return the created employee
         return created;
@@ -72,18 +70,17 @@ public class EmployeeController {
      */
     @GetMapping("/{id}")
     public Employee read(@PathVariable String id) throws EmployeeNotFoundException {  
-        // LOG the ID when fetching an employee
-        LOG.debug("Fetching employee with ID: {}", id);
+        // LOG request to fetch an employee by ID
+        LOG.debug("Requesting employee - ID: {}", id);
     
         // Read the employee using the EmployeeService
         Employee employee = employeeService.read(id);
 
-        // LOG the employee's details after fetching
-        LOG.debug("Found employee - ID: {}, FullName: {} {}, Position: {}",
+        // LOG the employee's details
+        LOG.debug("Successfully fetched employee - ID: {}, Name: {} {}",
             employee.getEmployeeId(),
             employee.getFirstName(),
-            employee.getLastName(),
-            employee.getPosition());
+            employee.getLastName());
 
         // Return the fetched employee
         return employee;
@@ -99,30 +96,16 @@ public class EmployeeController {
      */
     @PutMapping("/{id}")
     public Employee update(@PathVariable String id, @RequestBody Employee employee) throws EmployeeNotFoundException {
-        // LOG the ID and updated data when updating an employee
-        LOG.debug("Updating employee ID: {} with data - FullName: {} {}, Position: {}, Department: {}",
+        // LOG to request to update an employee by ID
+        LOG.debug("Update request for ID: {}. Submitted fields: {}", 
             id,
-            employee.getFirstName(),
-            employee.getLastName(),
-            employee.getPosition(),
-            employee.getDepartment());
-        
-        // Set the employee ID in the request body to make sure it matches the path variable
+            String.join(", ", employee.getNonNullFields()));
+            
+        // Set the employee ID
         employee.setEmployeeId(id);
 
-        // Update the employee using the EmployeeService
-        Employee updated = employeeService.update(employee);
-
-        // LOG the updated employee's details after updating
-        LOG.info("Successfully updated employee ID: {} with data - FullName: {} {}, Position: {}, Department: {}",
-            id,
-            updated.getFirstName(),
-            updated.getLastName(),
-            updated.getPosition(),
-            updated.getDepartment());
-
-        // Return the updated employee
-        return updated;
+        // Update the employee data using the EmployeeService and return
+        return employeeService.update(employee);
     }
 
     /**
@@ -136,17 +119,11 @@ public class EmployeeController {
      */
     @GetMapping("/{id}/reporting-structure")
     public ReportingStructure getReportingStructure(@PathVariable String id) throws EmployeeNotFoundException {
-        // LOG the ID when generating the reporting structure
-        LOG.debug("Generating reporting structure for employee ID: {}", id);
+        // LOG the request to get the reporting structure
+        LOG.debug("Initiating reporting structure generation for employee ID: {}", id);
 
         // Generate the reporting structure using the ReportingStructureService
         ReportingStructure structure = reportingStructureService.getReportingStructure(id);
-
-        // LOG the employee's details and total number of reports in the structure
-        LOG.info("Generated reporting structure - Employee: {} {}, Total Reports: {}",
-            structure.getEmployee().getFirstName(),
-            structure.getEmployee().getLastName(),
-            structure.getNumberOfReports());
 
         // Return the generated reporting structure
         return structure;

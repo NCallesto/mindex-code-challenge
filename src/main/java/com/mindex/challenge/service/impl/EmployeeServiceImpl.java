@@ -1,6 +1,8 @@
 package com.mindex.challenge.service.impl;
 
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,12 +31,20 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public Employee create(Employee employee) {
-        LOG.debug("Creating employee [{}]", employee);
+        // LOG that the employee is being created
+        LOG.debug("Generating new employee record...");
 
+        // Set the employee ID to a randomly generated UUID
         employee.setEmployeeId(UUID.randomUUID().toString());
-        employeeRepository.insert(employee);
 
-        return employee;
+        // Insert the employee into the repository
+        Employee createdEmployee = employeeRepository.insert(employee);
+        
+        // LOG the assigned employee ID
+        LOG.info("Assigned employee ID: {}", createdEmployee.getEmployeeId());
+
+        // Return the created employee
+        return createdEmployee;
     }
 
     /**
@@ -43,15 +53,20 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public Employee read(String id) throws EmployeeNotFoundException {
-        LOG.debug("Reading employee with id [{}]", id);
+        // LOG that the employee is being fetched
+        LOG.debug("Fetching employee record - ID: {}", id);
 
-        Employee employee = employeeRepository.findByEmployeeId(id);
+        // Try to fetch the employee from the repository by their employee ID
+        Employee fetchedEmployee = employeeRepository.findByEmployeeId(id);
+        
+        // LOG the retrieved employee details
+        LOG.info("Retrieved employee - ID: {}, Position: {}, Department: {}",
+            fetchedEmployee.getEmployeeId(),
+            fetchedEmployee.getPosition(),
+            fetchedEmployee.getDepartment());
 
-        if (employee == null) {
-            throw new RuntimeException("Invalid employeeId: " + id);
-        }
-
-        return employee;
+        // Return the retrieved employee
+        return fetchedEmployee;
     }
 
     /**
@@ -59,14 +74,34 @@ public class EmployeeServiceImpl implements EmployeeService {
      * @throws EmployeeNotFoundException if no employee exists with the given ID
      */
     @Override
-    public Employee update(Employee employee) throws EmployeeNotFoundException {
-        LOG.debug("Updating employee [{}]", employee);
+    public Employee update(Employee updatedEmployee) throws EmployeeNotFoundException {
+        // Get the employees existing record
+        Employee existing = employeeRepository.findByEmployeeId(updatedEmployee.getEmployeeId());
 
-        // Check that the employee exists before updating
-        if (!employeeRepository.existsById(employee.getEmployeeId())) {
-            throw new EmployeeNotFoundException("Employee not found for update: " + employee.getEmployeeId());
+        // Detect any changes with the getChangesFields method
+        Map<String, String> changes = existing.getChangedFields(updatedEmployee);
+        
+        // Log based on what was changed
+        if (!changes.isEmpty()) {
+            LOG.debug("Updating employee: {}. Changes: {}",
+                updatedEmployee.getEmployeeId(),
+                changes.entrySet().stream()
+                    .map(e -> e.getKey() + ": " + e.getValue())
+                    .collect(Collectors.joining(", "))
+            );
+        } else {
+            LOG.warn("No changes detected for employee: {}", updatedEmployee.getEmployeeId());
         }
 
-        return employeeRepository.save(employee);
+        // Then save updated employee
+        Employee saved = employeeRepository.save(updatedEmployee);
+
+        // Log the updated employee details
+        LOG.info("Employee {} updated. Modified fields: {}", 
+            saved.getEmployeeId(), 
+            String.join(", ", changes.keySet()));
+        
+        // return the saved employee
+        return saved;
     }
 }
