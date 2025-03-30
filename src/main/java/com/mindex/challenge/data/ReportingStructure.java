@@ -7,51 +7,38 @@ package com.mindex.challenge.data;
 public class ReportingStructure {
     private Employee employee;
     private int numberOfReports;
-
+    
     /**
-     * Default constructor.
-     */
-    public ReportingStructure() {}
-
-    /**
-     * Constructs a ReportingStructure with the given employee and report count.
+     * Constructs a new ReportingStructure with the specified employee and report count.
      *
-     * @param employee The employee for the reporting structure
-     * @param numberOfReports The total number of reports under this employee
+     * @param employee The employee this structure refers to
+     * @param numberOfReports The total number of distinct reports in the hierarchy
+     * @throws IllegalArgumentException if employee is null or report count is negative
      */
     public ReportingStructure(Employee employee, int numberOfReports) {
+        if (employee == null) {throw new IllegalArgumentException("Employee cannot be null");}
+        if (numberOfReports < 0) {throw new IllegalArgumentException("Report count cannot be negative");}
+
         this.employee = employee;
         this.numberOfReports = numberOfReports;
     }
 
-
-    // Getters and Setters with JavaDoc
-
     /**
-     * @return The employee the reporting structure refers to
+     * Gets the employee this reporting structure refers to.
+     *
+     * @return The employee with complete reporting hierarchy
      */
     public Employee getEmployee() {
         return employee;
     }
 
     /**
-     * @param employee The employee to set
-     */
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    /**
-     * @return The total number of reports under this employee
+     * Gets the total number of distinct reports under this employee.
+     *
+     * @return The count of all direct and indirect reports
+     * @implNote Includes all levels of the reporting hierarchy
      */
     public int getNumberOfReports() {
         return numberOfReports;
-    }
-
-    /**
-     * @param numberOfReports The number of reports to set
-     */
-    public void setNumberOfReports(int numberOfReports) {
-        this.numberOfReports = numberOfReports;
     }
 }
