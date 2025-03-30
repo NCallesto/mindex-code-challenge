@@ -14,7 +14,28 @@ public class Employee {
     private String department;
     private List<Employee> directReports;
 
-    public Employee() {
+    public Employee() {}
+
+
+    public Employee(String firstName, String lastName, String position, String department) {
+        validateRequiredFields(firstName, lastName, position, department);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.position = position;
+        this.department = department;
+    }
+
+
+    public Employee(String firstName, String lastName, String position, String department, List<Employee> directReports) {
+        validateRequiredFields(firstName, lastName, position, department);
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.position = position;
+        this.department = department;
+
+        // if null, initialize to empty list
+        // if not null, create a new list with the same elements
+        this.directReports = directReports != null ? new ArrayList<>(directReports) : new ArrayList<>();
     }
 
     public String getEmployeeId() {
@@ -101,5 +122,15 @@ public class Employee {
         if (this.position != null) fields.add("position");
         if (this.department != null) fields.add("department");
         return fields;
+    }
+
+    // Shared validation logic
+    private void validateRequiredFields(String... fields) {
+        String[] fieldNames = {"firstName", "lastName", "position", "department"};
+        for (int i = 0; i < fields.length; i++) {
+            if (fields[i] == null || fields[i].trim().isEmpty()) {
+                throw new IllegalArgumentException(fieldNames[i] + " is required");
+            }
+        }
     }
 }

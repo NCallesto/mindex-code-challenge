@@ -42,20 +42,55 @@ public class EmployeeController {
      * @return The created employee with generated ID
      */
     @PostMapping("")
-    public Employee create(@RequestBody Employee employee) {
-        // LOG the request to create an employee with the provided fields map
-        LOG.debug("Creating employee with ID: {}", employee.getEmployeeId());   
-    
+    public Employee create(@RequestBody Employee request) {
+        // For logginsg purposes
+        boolean reports = false;
+
+        // LOG the request to create an employe
+        LOG.debug("Requesting to create employee {}", request);  
+
+        Employee employee;
+
+        // Use full constructor if reports are provided
+        if (request.getDirectReports() != null && !request.getDirectReports().isEmpty()) {
+            reports = true;
+            employee = new Employee(
+                request.getFirstName(),
+                request.getLastName(),
+                request.getPosition(),
+                request.getDepartment(),
+                request.getDirectReports()
+            );
+        } else {
+            // Default to minimal constructor of 4 fields without reports
+            employee = new Employee(
+                request.getFirstName(),
+                request.getLastName(),
+                request.getPosition(),
+                request.getDepartment()
+            );
+        }
+        
         // Create the employee using the EmployeeService
         Employee created = employeeService.create(employee);
 
         // Log the employee's full details after creation
-        LOG.info("Created employee - ID: {}, FullName: {} {}, Position: {}, Department: {}",
-            created.getEmployeeId() != null ? created.getEmployeeId() : "",
-            created.getFirstName() != null ? created.getFirstName() : "",
-            created.getLastName() != null ? created.getLastName() : "",
-            created.getPosition() != null ? created.getPosition() : "",
-            created.getDepartment() != null ? created.getDepartment() : "");
+        if (reports) { // With reports
+            LOG.info("Created employee - ID: {}, FullName: {} {}, Position: {}, Department: {}, DirectReports: {}",
+                created.getEmployeeId(),
+                created.getFirstName(),
+                created.getLastName(),
+                created.getPosition(),
+                created.getDepartment(),
+                created.getDirectReports());
+        } else { // Without reports
+            LOG.info("Created employee - ID: {}, FullName: {} {}, Position: {}, Department: {}",
+                created.getEmployeeId(),
+                created.getFirstName(),
+                created.getLastName(),
+                created.getPosition(),
+                created.getDepartment());
+        }
 
         // Return the created employee
         return created;
