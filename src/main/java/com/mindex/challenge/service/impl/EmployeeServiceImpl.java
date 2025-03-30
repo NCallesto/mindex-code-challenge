@@ -42,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public Employee read(String id) throws EmployeeNotFoundException {
-        LOG.debug("Creating employee with id [{}]", id);
+        LOG.debug("Reading employee with id [{}]", id);
 
         Employee employee = employeeRepository.findByEmployeeId(id);
 
@@ -75,7 +75,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      */
     @Override
     public ReportingStructure getReportingStructure(String employeeID) throws EmployeeNotFoundException {
-        LOG.debug("Creating reporting structure for employee with id [{}]", employeeID);
+        LOG.debug("Creating reporting structure for employee id [{}]", employeeID);
         
         // Get the employee or throw EmployeeNotFoundException if not found
         Employee employee = read(employeeID);
