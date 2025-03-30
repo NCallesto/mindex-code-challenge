@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mindex.challenge.data.Compensation;
@@ -15,10 +16,19 @@ import com.mindex.challenge.exception.EmployeeNotFoundException;
 import com.mindex.challenge.service.CompensationService;
 
 /**
- * REST controller for compensation-related operations.
- * Exposes endpoints for creating and retrieving employee compensation records.
+ * REST controller for compensation operations.
+ * 
+ * Endpoints:
+ * - POST /employee/{id}/compensation - Create compensation
+ * - GET /employee/{id}/compensation - Read compensation
+ * 
+ * Features:
+ * - Proper REST resource naming
+ * - Clear parameter documentation
+ * - Consistent error responses
  */
 @RestController
+@RequestMapping("/employee")
 public class CompensationController {
     private static final Logger LOG = LoggerFactory.getLogger(CompensationController.class);
 
@@ -42,7 +52,7 @@ public class CompensationController {
      * @return The created Compensation object
      * @throws EmployeeNotFoundException if no employee exists with the given ID
      */
-    @PostMapping("/employee/{id}/compensation")
+    @PostMapping("/{id}/compensation")
     public Compensation create(@PathVariable("id") String employeeId, @RequestBody CompensationRequest request) 
             throws EmployeeNotFoundException {
         LOG.debug("Received compensation create request for employee ID: {}", employeeId);
@@ -61,7 +71,7 @@ public class CompensationController {
      * @throws EmployeeNotFoundException if no employee exists with the given ID
      * @throws CompensationNotFoundException if no compensation exists for the employee
      */
-    @GetMapping("/employee/{id}/compensation")
+    @GetMapping("/{id}/compensation")
     public Compensation read(@PathVariable("id") String employeeId) 
             throws EmployeeNotFoundException, CompensationNotFoundException {
         LOG.debug("Received compensation read request for employee ID: {}", employeeId);

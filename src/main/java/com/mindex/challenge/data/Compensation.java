@@ -6,8 +6,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 /**
- * Represents an employee's compensation details including salary and effective date.
- * This class is immutable to ensure thread safety and data consistency.
+ * Represents an employee's compensation details stored in MongoDB.
+ * 
+ * Key Features:
+ * - @DBRef for proper employee reference
+ * - Immutable effectiveDate with defensive copying
+ * - Comprehensive validation in constructor
+ * - Clear documentation of all fields and methods
  */
 public class Compensation {
     @Id

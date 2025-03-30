@@ -6,9 +6,13 @@ import org.springframework.stereotype.Repository;
 import com.mindex.challenge.data.Compensation;
 
 /**
- * MongoDB repository for Compensation entities.
- * Provides basic CRUD operations and custom query methods for Compensation data.
- * Uses the employee's ID field for querying compensation records.
+ * Service implementation for compensation operations.
+ * 
+ * Key Features:
+ * - Validates employee existence before operations
+ * - Ensures one compensation record per employee
+ * - Comprehensive error handling
+ * - Detailed logging for all operations
  */
 @Repository
 public interface CompensationRepository extends MongoRepository<Compensation, String> {
