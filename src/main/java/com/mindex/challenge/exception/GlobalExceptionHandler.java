@@ -16,6 +16,18 @@ public class GlobalExceptionHandler {
     private static final Logger LOG = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     /**
+     * Handles InvalidEmployeeRequestException by returning the 400 Bad Request response.
+     * 
+     * @param ex The caught exception
+     * @return ResponseEntity with an error message and the HTTP status
+     */
+    @ExceptionHandler(InvalidEmployeeRequestException.class)
+    public ResponseEntity<String> handleInvalidEmployeeRequest(InvalidEmployeeRequestException ex) {
+        LOG.warn("Invalid employee request: {}", ex.getMessage());
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    /**
      * Handles EmployeeNotFoundException by returning the 404 Not Found response.
      * 
      * @param ex The caught exception
