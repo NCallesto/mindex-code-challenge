@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mindex.challenge.exception.InvalidEmployeeRequestException;
+
 public class Employee {
     private String employeeId;
     private String firstName;
@@ -16,7 +19,15 @@ public class Employee {
 
     public Employee() {}
 
-
+    /**
+     * Constructs a new Employee with the required fields (firstName, lastName, position, department).
+     *
+     * @param firstName  the employee's first name (must not be null or empty)
+     * @param lastName   the employee's last name (must not be null or empty)
+     * @param position   the employee's job position (must not be null or empty)
+     * @param department the employee's department (must not be null or empty)
+     * @throws InvalidEmployeeRequestException if any required field is null or empty
+     */
     public Employee(String firstName, String lastName, String position, String department) {
         validateRequiredFields(firstName, lastName, position, department);
         this.firstName = firstName;
@@ -25,16 +36,24 @@ public class Employee {
         this.department = department;
     }
 
-
+    /**
+     * Constructs a new Employee with the required fields and an optional list of direct reports.
+     * If the provided directReports list is null, it initializes the field as an empty ArrayList.
+     * Otherwise, it creates a copy of the provided list.
+     *
+     * @param firstName      the employee's first name (must not be null or empty)
+     * @param lastName       the employee's last name (must not be null or empty)
+     * @param position       the employee's job position (must not be null or empty)
+     * @param department     the employee's department (must not be null or empty)
+     * @param directReports  a list of employees who report directly to this employee (may be null)
+     * @throws InvalidEmployeeRequestException if any required field is null or empty
+     */
     public Employee(String firstName, String lastName, String position, String department, List<Employee> directReports) {
         validateRequiredFields(firstName, lastName, position, department);
         this.firstName = firstName;
         this.lastName = lastName;
         this.position = position;
         this.department = department;
-
-        // if null, initialize to empty list
-        // if not null, create a new list with the same elements
         this.directReports = directReports != null ? new ArrayList<>(directReports) : new ArrayList<>();
     }
 
@@ -87,9 +106,13 @@ public class Employee {
     }
 
     /**
-     * Identifies any changed fields between this and another employee
-     * @param updated The updated employee object
-     * @return Map of changed fields (key: field name, value: old→new values)
+     * Compares the current Employee with an updated version and finds which fields were changed.
+     * Only fields that were directly set in the updated object are compared (null values in the update are ignored).
+     *
+     * @param updated The updated Employee object to compare against.
+     * @return A map where:
+     *         - Key: The name of the field that was changed ("firstName").
+     *         - Value: A string showing the change ("John -> Jane").
      */
     public Map<String, String> getChangedFields(Employee updated) {
         Map<String, String> changes = new HashMap<>();
@@ -112,9 +135,12 @@ public class Employee {
     }
 
     /**
-     * Returns names of non-null fields in the current object.
-     * Useful for logging partial updates in the controller.
+     * Returns a list of field names that have non-null values in the current Employee object.
+     * Used for update logging where only some fields are modified.
+     *
+     * @return A list of non-null field names ("firstName", "position").
      */
+    @JsonIgnore
     public List<String> getNonNullFields() {
         List<String> fields = new ArrayList<>();
         if (this.firstName != null) fields.add("firstName");
@@ -124,13 +150,27 @@ public class Employee {
         return fields;
     }
 
-    // Shared validation logic
+    /**
+     * Validates that all of the required fields (firstName, lastName, position, department) are non-null and non-empty.
+     * Throws an exception if any field is invalid.
+     *
+     * @param fields Varargs parameter that represents the field values to validate, 
+     *              in the order of: firstName, lastName, position, department.
+     * @throws InvalidEmployeeRequestException if any required field is null or empty.
+     */
     private void validateRequiredFields(String... fields) {
         String[] fieldNames = {"firstName", "lastName", "position", "department"};
+        List<String> missingFields = new ArrayList<>();
+
         for (int i = 0; i < fields.length; i++) {
             if (fields[i] == null || fields[i].trim().isEmpty()) {
-                throw new IllegalArgumentException(fieldNames[i] + " is required");
+                missingFields.add(fieldNames[i]);
             }
+        }
+
+        if (!missingFields.isEmpty()) {
+            throw new InvalidEmployeeRequestException(
+                "Required fields missing: " + String.join(", ", missingFields));
         }
     }
 }
