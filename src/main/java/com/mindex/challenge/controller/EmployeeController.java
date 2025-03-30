@@ -47,7 +47,7 @@ public class EmployeeController {
      */
     @GetMapping("/employee/{id}")
     public Employee read(@PathVariable String id) throws EmployeeNotFoundException {    
-        LOG.debug("Received employee create request for id [{}]", id);
+        LOG.debug("Received employee read request for id [{}]", id);
 
         return employeeService.read(id);
     }
@@ -78,7 +78,7 @@ public class EmployeeController {
      */
     @GetMapping("/employee/{id}/reporting-structure")
     public ReportingStructure getReportingStructure(@PathVariable String id) throws EmployeeNotFoundException {
-        LOG.debug("Received reporting structure request for id [{}]", id);
+        LOG.debug("Received reporting structure request for employee id [{}]", id);
 
         return employeeService.getReportingStructure(id);
     }
