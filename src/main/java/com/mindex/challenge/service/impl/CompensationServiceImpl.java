@@ -130,8 +130,15 @@ public class CompensationServiceImpl implements CompensationService {
                             simplified.setLastName(directReport.getLastName());
                             simplified.setPosition(directReport.getPosition());
                             simplified.setDepartment(directReport.getDepartment());
-                            // Explicit empty list ([]) instead of null 
-                            simplified.setDirectReports(Collections.emptyList());
+                            
+                            // Match reporting structure behavior:
+                            // - [] if employee has reports (doesn't actually show them because the reporting structure is not needed)
+                            // - null if no reports
+                            if (directReport.getDirectReports() != null && !directReport.getDirectReports().isEmpty()) {
+                                simplified.setDirectReports(Collections.emptyList());
+                            }
+                            // else remains null
+                            
                             return simplified;
                         } catch (EmployeeNotFoundException e) {
                             LOG.warn("Missing direct report: {}", report.getEmployeeId());
