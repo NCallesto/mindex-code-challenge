@@ -17,9 +17,9 @@ public class Compensation {
     @Id
     private String id; 
     private String employeeId; // Store employeeId directly instead of the Employee reference
-    private final Employee employee; // full employee data when needed
-    private final double salary;
-    private final Date effectiveDate;
+    private Employee employee; // full employee data when needed
+    private double salary;
+    private Date effectiveDate;
 
     /**
      * Constructs a new Compensation record.
@@ -46,12 +46,21 @@ public class Compensation {
         this.effectiveDate = new Date(effectiveDate.getTime());
     }
 
+
     /**
      * Gets the unique identifier for this compensation record.
      * @return The compensation ID
      */
     public String getId() {
         return id;
+    }
+
+    /**
+     * Sets the unique identifier for this compensation record.
+     * @param id The compensation ID
+     */
+    public void setId(String id) { 
+        this.id = id; 
     }
 
     /**
@@ -63,6 +72,14 @@ public class Compensation {
     }
 
     /**
+     * Sets the unique identifier for this employee record.
+     * @param employeeId The employee ID
+     */
+    public void setEmployeeId(String employeeId) { 
+        this.employeeId = employeeId; 
+    }
+
+    /**
      * Gets the employee associated with this compensation.
      * @return The employee object (never null)
      */
@@ -71,7 +88,18 @@ public class Compensation {
     }
 
     /**
-     * Gets the annual salary amount.
+     * Sets the employee associated with this compensation.
+     * @param employee The employee object (must not be null)
+     */
+    public void setEmployee(Employee employee) { 
+        this.employee = employee;
+        if (employee != null) {
+            this.employeeId = employee.getEmployeeId();
+        }
+    }
+
+    /**
+     * Gets the salary amount.
      * @return The salary value
      */
     public double getSalary() {
@@ -79,10 +107,32 @@ public class Compensation {
     }
 
     /**
+     * Sets the salary amount associated with this compensation.
+     * @param salary The salary value (must be positive)
+     */
+    public void setSalary(double salary) { 
+        if (salary <= 0) {
+            throw new IllegalArgumentException("Salary must be positive");
+        }
+        this.salary = salary; 
+    }
+
+    /**
      * Gets the effective date of this compensation.
-     * @return A defensive copy of the effective date
+     * @return A copy of the effective date
      */
     public Date getEffectiveDate() {
         return new Date(effectiveDate.getTime());
+    }
+
+    /**
+     * Sets the effective date of this compensation.
+     * @param effectiveDate The effective date (must not be null)
+     */
+    public void setEffectiveDate(Date effectiveDate) { 
+        if (effectiveDate == null) {
+            throw new IllegalArgumentException("Effective date cannot be null");
+        }
+        this.effectiveDate = new Date(effectiveDate.getTime());
     }
 }
