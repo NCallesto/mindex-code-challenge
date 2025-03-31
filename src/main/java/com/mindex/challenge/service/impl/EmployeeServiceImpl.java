@@ -1,6 +1,8 @@
 package com.mindex.challenge.service.impl;
 
+import java.util.Collections;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -66,7 +68,7 @@ public class EmployeeServiceImpl implements EmployeeService {
             fetchedEmployee.getDepartment());
 
         // Return the retrieved employee
-        return fetchedEmployee;
+        return resolveEmployeeHierarchy(fetchedEmployee);
     }
 
     /**
@@ -124,5 +126,67 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         
         return saved;
+    }
+
+    /**
+     * Recursively resolves the complete employee hierarchy starting from the given employee.
+     * Uses the same logic as ReportingStructureService for consistent employee resolution.
+     *
+     * @param employee The root employee to start resolution from
+     * @return The fully resolved employee with complete direct reports hierarchy
+     * @throws EmployeeNotFoundException if any employee in the hierarchy cannot be found
+     */
+    private Employee resolveEmployeeHierarchy(Employee employee) throws EmployeeNotFoundException {
+        // Create new employee instance to hold resolved data
+        Employee resolved = new Employee();
+
+        // Copy all basic fields
+        resolved.setEmployeeId(employee.getEmployeeId());
+        resolved.setFirstName(employee.getFirstName());
+        resolved.setLastName(employee.getLastName());
+        resolved.setPosition(employee.getPosition());
+        resolved.setDepartment(employee.getDepartment());
+
+        // Resolve only the direct reports recursively if they exist
+        if (employee.getDirectReports() != null) {
+            resolved.setDirectReports(
+                employee.getDirectReports().stream()
+                    .map(report -> {
+                        try {
+                            Employee directReport = employeeRepository.findByEmployeeId(report.getEmployeeId());
+                            if (directReport == null) {
+                                LOG.warn("Missing direct report: {}", report.getEmployeeId());
+                                return null;
+                            }
+                            Employee simplified = new Employee();
+                            simplified.setEmployeeId(directReport.getEmployeeId());
+                            simplified.setFirstName(directReport.getFirstName());
+                            simplified.setLastName(directReport.getLastName());
+                            simplified.setPosition(directReport.getPosition());
+                            simplified.setDepartment(directReport.getDepartment());
+                            
+                            // Match reporting structure behavior:
+                            // - [] if employee has reports (doesn't actually show them because the reporting structure is not needed)
+                            // - null if no reports
+                            if (directReport.getDirectReports() != null && !directReport.getDirectReports().isEmpty()) {
+                                simplified.setDirectReports(Collections.emptyList());
+                            }
+                            // else remains null
+
+                            return simplified;
+                        } catch (Exception e) {
+                            LOG.warn("Error resolving direct report: {}", report.getEmployeeId(), e);
+                            return null;
+                        }
+                    })
+                    .filter(Objects::nonNull)
+                    .toList()
+            );
+        } else {
+            resolved.setDirectReports(Collections.emptyList());
+        }
+        
+
+        return resolved;
     }
 }
