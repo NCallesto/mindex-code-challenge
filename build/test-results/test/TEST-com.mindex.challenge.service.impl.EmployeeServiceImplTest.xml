@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mindex.challenge.service.impl.EmployeeServiceImplTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-03-31T06:03:45" hostname="NCLAPTOP" time="0.037">
+  <properties/>
+  <testcase name="testCreateReadUpdate" classname="com.mindex.challenge.service.impl.EmployeeServiceImplTest" time="0.037"/>
+  <system-out><![CDATA[2025-03-31T02:03:45.035-04:00  INFO 12876 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.mindex.challenge.service.impl.EmployeeServiceImplTest]: EmployeeServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-31T02:03:45.041-04:00  INFO 12876 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.mindex.challenge.ChallengeApplication for test class com.mindex.challenge.service.impl.EmployeeServiceImplTest
+2025-03-31T02:03:45.062-04:00 DEBUG 12876 --- [o-auto-1-exec-5] c.m.c.controller.EmployeeController      : Requesting to create employee com.mindex.challenge.data.Employee@4affe104
+2025-03-31T02:03:45.062-04:00 DEBUG 12876 --- [o-auto-1-exec-5] c.m.c.service.impl.EmployeeServiceImpl   : Generating new employee record...
+2025-03-31T02:03:45.064-04:00  INFO 12876 --- [o-auto-1-exec-5] c.m.c.service.impl.EmployeeServiceImpl   : Assigned employee ID: 759055ad-825d-4287-9cf2-030e1eebc829
+2025-03-31T02:03:45.064-04:00  INFO 12876 --- [o-auto-1-exec-5] c.m.c.controller.EmployeeController      : Created employee - ID: 759055ad-825d-4287-9cf2-030e1eebc829, FullName: John Doe, Position: Developer, Department: Engineering
+2025-03-31T02:03:45.066-04:00 DEBUG 12876 --- [o-auto-1-exec-7] c.m.c.controller.EmployeeController      : Requesting employee - ID: 759055ad-825d-4287-9cf2-030e1eebc829
+2025-03-31T02:03:45.066-04:00 DEBUG 12876 --- [o-auto-1-exec-7] c.m.c.service.impl.EmployeeServiceImpl   : Fetching employee record - ID: 759055ad-825d-4287-9cf2-030e1eebc829
+2025-03-31T02:03:45.067-04:00  INFO 12876 --- [o-auto-1-exec-7] c.m.c.service.impl.EmployeeServiceImpl   : Retrieved employee - ID: 759055ad-825d-4287-9cf2-030e1eebc829, Position: Developer, Department: Engineering
+2025-03-31T02:03:45.067-04:00 DEBUG 12876 --- [o-auto-1-exec-7] c.m.c.controller.EmployeeController      : Successfully fetched employee - ID: 759055ad-825d-4287-9cf2-030e1eebc829, Name: John Doe
+2025-03-31T02:03:45.072-04:00 DEBUG 12876 --- [o-auto-1-exec-8] c.m.c.controller.EmployeeController      : Update request for ID: 759055ad-825d-4287-9cf2-030e1eebc829. Submitted fields: firstName, lastName, position, department
+2025-03-31T02:03:45.074-04:00 DEBUG 12876 --- [o-auto-1-exec-8] c.m.c.service.impl.EmployeeServiceImpl   : Updating employee: 759055ad-825d-4287-9cf2-030e1eebc829. Changes: position: Developer -> Development Manager
+2025-03-31T02:03:45.078-04:00  INFO 12876 --- [o-auto-1-exec-8] c.m.c.service.impl.EmployeeServiceImpl   : Employee 759055ad-825d-4287-9cf2-030e1eebc829 updated. Modified fields: position
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

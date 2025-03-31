@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mindex.challenge.DataBootstrapTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-03-31T06:03:45" hostname="NCLAPTOP" time="0.004">
+  <properties/>
+  <testcase name="test" classname="com.mindex.challenge.DataBootstrapTest" time="0.004"/>
+  <system-out><![CDATA[2025-03-31T02:03:44.687-04:00  INFO 12876 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.mindex.challenge.DataBootstrapTest]: DataBootstrapTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2025-03-31T02:03:44.688-04:00  INFO 12876 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.mindex.challenge.ChallengeApplication for test class com.mindex.challenge.DataBootstrapTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.3)
+
+2025-03-31T02:03:44.708-04:00  INFO 12876 --- [    Test worker] com.mindex.challenge.DataBootstrapTest   : Starting DataBootstrapTest using Java 17.0.12 with PID 12876 (started by ncall in C:\RIT\Job Stuff\mindex-code-challenge)
+2025-03-31T02:03:44.708-04:00 DEBUG 12876 --- [    Test worker] com.mindex.challenge.DataBootstrapTest   : Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-31T02:03:44.708-04:00  INFO 12876 --- [    Test worker] com.mindex.challenge.DataBootstrapTest   : No active profile set, falling back to 1 default profile: "default"
+2025-03-31T02:03:44.771-04:00  INFO 12876 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2025-03-31T02:03:44.774-04:00  INFO 12876 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 2 ms. Found 2 MongoDB repository interfaces.
+2025-03-31T02:03:44.897-04:00  INFO 12876 --- [    Test worker] de.bwaldvogel.mongo.MongoServer          : started MongoServer(port: 52084, ssl: false)
+2025-03-31T02:03:44.900-04:00  INFO 12876 --- [    Test worker] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync", "version": "4.11.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/17.0.12+8-LTS-286"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, transportSettings=null, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@39449465, com.mongodb.Jep395RecordCodecProvider@6e3dd5ce, com.mongodb.KotlinCodecProvider@16f7f59f]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[kubernetes.docker.internal:52084], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=UNSPECIFIED, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null}
+2025-03-31T02:03:44.900-04:00  INFO 12876 --- [-server-worker2] d.b.mongo.wire.MongoWireProtocolHandler  : client [id: 0x47d07314, L:/127.0.0.1:52084 - R:/127.0.0.1:52086] connected
+2025-03-31T02:03:44.900-04:00  INFO 12876 --- [-server-worker1] d.b.mongo.wire.MongoWireProtocolHandler  : client [id: 0xc04eb017, L:/127.0.0.1:52084 - R:/127.0.0.1:52085] connected
+2025-03-31T02:03:44.903-04:00  INFO 12876 --- [.internal:52084] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=kubernetes.docker.internal:52084, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=6, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=2632199}
+2025-03-31T02:03:44.945-04:00  INFO 12876 --- [-server-worker3] d.b.mongo.wire.MongoWireProtocolHandler  : client [id: 0xee298462, L:/127.0.0.1:52084 - R:/127.0.0.1:52087] connected
+2025-03-31T02:03:44.947-04:00  INFO 12876 --- [-server-worker3] d.b.mongo.backend.AbstractMongoBackend   : created database test
+2025-03-31T02:03:44.947-04:00  INFO 12876 --- [-server-worker3] d.b.mongo.backend.AbstractMongoDatabase  : adding unique _id index for collection employee
+2025-03-31T02:03:44.948-04:00  INFO 12876 --- [-server-worker3] d.b.mongo.backend.AbstractMongoDatabase  : created collection test.employee
+2025-03-31T02:03:45.008-04:00  INFO 12876 --- [    Test worker] com.mindex.challenge.DataBootstrapTest   : Started DataBootstrapTest in 0.316 seconds (process running for 4.141)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

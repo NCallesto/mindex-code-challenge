@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.mindex.challenge.ChallengeApplicationTests" tests="3" skipped="0" failures="0" errors="0" timestamp="2025-03-31T06:03:43" hostname="NCLAPTOP" time="0.696">
+  <properties/>
+  <testcase name="testCompensationCreateRead" classname="com.mindex.challenge.ChallengeApplicationTests" time="0.668"/>
+  <testcase name="testReportingStructure" classname="com.mindex.challenge.ChallengeApplicationTests" time="0.023"/>
+  <testcase name="testDirectReportsNotNullForLeaves" classname="com.mindex.challenge.ChallengeApplicationTests" time="0.005"/>
+  <system-out><![CDATA[02:03:41.370 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.mindex.challenge.ChallengeApplicationTests]: ChallengeApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+02:03:41.449 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.mindex.challenge.ChallengeApplication for test class com.mindex.challenge.ChallengeApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.3)
+
+2025-03-31T02:03:41.727-04:00  INFO 12876 --- [    Test worker] c.m.challenge.ChallengeApplicationTests  : Starting ChallengeApplicationTests using Java 17.0.12 with PID 12876 (started by ncall in C:\RIT\Job Stuff\mindex-code-challenge)
+2025-03-31T02:03:41.727-04:00 DEBUG 12876 --- [    Test worker] c.m.challenge.ChallengeApplicationTests  : Running with Spring Boot v3.2.3, Spring v6.1.4
+2025-03-31T02:03:41.728-04:00  INFO 12876 --- [    Test worker] c.m.challenge.ChallengeApplicationTests  : No active profile set, falling back to 1 default profile: "default"
+2025-03-31T02:03:42.016-04:00  INFO 12876 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+2025-03-31T02:03:42.044-04:00  INFO 12876 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 2 MongoDB repository interfaces.
+2025-03-31T02:03:42.495-04:00  INFO 12876 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 0 (http)
+2025-03-31T02:03:42.502-04:00  INFO 12876 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-03-31T02:03:42.502-04:00  INFO 12876 --- [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
+2025-03-31T02:03:42.687-04:00  INFO 12876 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-03-31T02:03:42.687-04:00  INFO 12876 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 947 ms
+2025-03-31T02:03:42.940-04:00  INFO 12876 --- [    Test worker] de.bwaldvogel.mongo.MongoServer          : started MongoServer(port: 52077, ssl: false)
+2025-03-31T02:03:43.021-04:00  INFO 12876 --- [    Test worker] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync", "version": "4.11.1"}, "os": {"type": "Windows", "name": "Windows 11", "architecture": "amd64", "version": "10.0"}, "platform": "Java/Oracle Corporation/17.0.12+8-LTS-286"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, transportSettings=null, streamFactoryFactory=null, commandListeners=[], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.client.model.mql.ExpressionCodecProvider@39449465, com.mongodb.Jep395RecordCodecProvider@6e3dd5ce, com.mongodb.KotlinCodecProvider@16f7f59f]}, loggerSettings=LoggerSettings{maxDocumentLength=1000}, clusterSettings={hosts=[kubernetes.docker.internal:52077], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='15 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, proxySettings=ProxySettings{host=null, port=null, username=null, password=null}}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=UNSPECIFIED, serverApi=null, autoEncryptionSettings=null, dnsClient=null, inetAddressResolver=null, contextProvider=null}
+2025-03-31T02:03:43.027-04:00  INFO 12876 --- [-server-worker2] d.b.mongo.wire.MongoWireProtocolHandler  : client [id: 0x3109da8f, L:/127.0.0.1:52077 - R:/127.0.0.1:52079] connected
+2025-03-31T02:03:43.027-04:00  INFO 12876 --- [-server-worker1] d.b.mongo.wire.MongoWireProtocolHandler  : client [id: 0x5e8c19b0, L:/127.0.0.1:52077 - R:/127.0.0.1:52078] connected
+2025-03-31T02:03:43.076-04:00  INFO 12876 --- [.internal:52077] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=kubernetes.docker.internal:52077, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=6, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=60707201}
+2025-03-31T02:03:43.479-04:00  INFO 12876 --- [-server-worker3] d.b.mongo.wire.MongoWireProtocolHandler  : client [id: 0x1985499d, L:/127.0.0.1:52077 - R:/127.0.0.1:52081] connected
+2025-03-31T02:03:43.499-04:00  INFO 12876 --- [-server-worker3] d.b.mongo.backend.AbstractMongoBackend   : created database test
+2025-03-31T02:03:43.502-04:00  INFO 12876 --- [-server-worker3] d.b.mongo.backend.AbstractMongoDatabase  : adding unique _id index for collection employee
+2025-03-31T02:03:43.508-04:00  INFO 12876 --- [-server-worker3] d.b.mongo.backend.AbstractMongoDatabase  : created collection test.employee
+2025-03-31T02:03:43.975-04:00  INFO 12876 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 52082 (http) with context path ''
+2025-03-31T02:03:43.982-04:00  INFO 12876 --- [    Test worker] c.m.challenge.ChallengeApplicationTests  : Started ChallengeApplicationTests in 2.425 seconds (process running for 3.114)
+2025-03-31T02:03:44.559-04:00  INFO 12876 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-03-31T02:03:44.560-04:00  INFO 12876 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-03-31T02:03:44.560-04:00  INFO 12876 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+2025-03-31T02:03:44.588-04:00 DEBUG 12876 --- [o-auto-1-exec-1] c.m.c.controller.CompensationController  : Received compensation create request for employee ID: b7839309-3348-463b-a7e3-5de1c168beb3
+2025-03-31T02:03:44.588-04:00 DEBUG 12876 --- [o-auto-1-exec-1] c.m.c.s.impl.CompensationServiceImpl     : Creating compensation for employee ID: b7839309-3348-463b-a7e3-5de1c168beb3
+2025-03-31T02:03:44.588-04:00 DEBUG 12876 --- [o-auto-1-exec-1] c.m.c.service.impl.EmployeeServiceImpl   : Fetching employee record - ID: b7839309-3348-463b-a7e3-5de1c168beb3
+2025-03-31T02:03:44.619-04:00  INFO 12876 --- [o-auto-1-exec-1] c.m.c.service.impl.EmployeeServiceImpl   : Retrieved employee - ID: b7839309-3348-463b-a7e3-5de1c168beb3, Position: Developer I, Department: Engineering
+2025-03-31T02:03:44.627-04:00  INFO 12876 --- [-server-worker3] d.b.mongo.backend.AbstractMongoDatabase  : adding unique _id index for collection compensation
+2025-03-31T02:03:44.628-04:00  INFO 12876 --- [-server-worker3] d.b.mongo.backend.AbstractMongoDatabase  : created collection test.compensation
+2025-03-31T02:03:44.629-04:00  INFO 12876 --- [o-auto-1-exec-1] c.m.c.s.impl.CompensationServiceImpl     : Created compensation for employee Paul McCartney - Salary: 100000.0, Effective: Mon Mar 31 02:03:44 EDT 2025
+2025-03-31T02:03:44.644-04:00 DEBUG 12876 --- [o-auto-1-exec-6] c.m.c.controller.CompensationController  : Received compensation read request for employee ID: b7839309-3348-463b-a7e3-5de1c168beb3
+2025-03-31T02:03:44.644-04:00 DEBUG 12876 --- [o-auto-1-exec-6] c.m.c.s.impl.CompensationServiceImpl     : Retrieving compensation for employee ID: b7839309-3348-463b-a7e3-5de1c168beb3
+2025-03-31T02:03:44.644-04:00 DEBUG 12876 --- [o-auto-1-exec-6] c.m.c.service.impl.EmployeeServiceImpl   : Fetching employee record - ID: b7839309-3348-463b-a7e3-5de1c168beb3
+2025-03-31T02:03:44.646-04:00  INFO 12876 --- [o-auto-1-exec-6] c.m.c.service.impl.EmployeeServiceImpl   : Retrieved employee - ID: b7839309-3348-463b-a7e3-5de1c168beb3, Position: Developer I, Department: Engineering
+2025-03-31T02:03:44.651-04:00 DEBUG 12876 --- [o-auto-1-exec-6] c.m.c.s.impl.CompensationServiceImpl     : Found compensation for employee ID: b7839309-3348-463b-a7e3-5de1c168beb3 - Salary: 100000.0, Effective: Mon Mar 31 02:03:44 EDT 2025
+2025-03-31T02:03:44.662-04:00 DEBUG 12876 --- [o-auto-1-exec-2] c.m.c.controller.EmployeeController      : Initiating reporting structure generation for employee ID: 16a596ae-edd3-4847-99fe-c4518e82c86f
+2025-03-31T02:03:44.662-04:00 DEBUG 12876 --- [o-auto-1-exec-2] c.m.c.s.i.ReportingStructureServiceImpl  : Building reporting structure for employee ID: 16a596ae-edd3-4847-99fe-c4518e82c86f
+2025-03-31T02:03:44.663-04:00 DEBUG 12876 --- [o-auto-1-exec-2] c.m.c.service.impl.EmployeeServiceImpl   : Fetching employee record - ID: 16a596ae-edd3-4847-99fe-c4518e82c86f
+2025-03-31T02:03:44.664-04:00  INFO 12876 --- [o-auto-1-exec-2] c.m.c.service.impl.EmployeeServiceImpl   : Retrieved employee - ID: 16a596ae-edd3-4847-99fe-c4518e82c86f, Position: Development Manager, Department: Engineering
+2025-03-31T02:03:44.669-04:00 DEBUG 12876 --- [o-auto-1-exec-2] c.m.c.service.impl.EmployeeServiceImpl   : Fetching employee record - ID: b7839309-3348-463b-a7e3-5de1c168beb3
+2025-03-31T02:03:44.670-04:00  INFO 12876 --- [o-auto-1-exec-2] c.m.c.service.impl.EmployeeServiceImpl   : Retrieved employee - ID: b7839309-3348-463b-a7e3-5de1c168beb3, Position: Developer I, Department: Engineering
+2025-03-31T02:03:44.670-04:00 DEBUG 12876 --- [o-auto-1-exec-2] c.m.c.service.impl.EmployeeServiceImpl   : Fetching employee record - ID: 03aa1462-ffa9-4978-901b-7c001562cf6f
+2025-03-31T02:03:44.671-04:00  INFO 12876 --- [o-auto-1-exec-2] c.m.c.service.impl.EmployeeServiceImpl   : Retrieved employee - ID: 03aa1462-ffa9-4978-901b-7c001562cf6f, Position: Developer V, Department: Engineering
+2025-03-31T02:03:44.673-04:00 DEBUG 12876 --- [o-auto-1-exec-2] c.m.c.service.impl.EmployeeServiceImpl   : Fetching employee record - ID: 62c1084e-6e34-4630-93fd-9153afb65309
+2025-03-31T02:03:44.674-04:00  INFO 12876 --- [o-auto-1-exec-2] c.m.c.service.impl.EmployeeServiceImpl   : Retrieved employee - ID: 62c1084e-6e34-4630-93fd-9153afb65309, Position: Developer II, Department: Engineering
+2025-03-31T02:03:44.675-04:00 DEBUG 12876 --- [o-auto-1-exec-2] c.m.c.service.impl.EmployeeServiceImpl   : Fetching employee record - ID: c0c2293d-16bd-4603-8e08-638a9d18b22c
+2025-03-31T02:03:44.675-04:00  INFO 12876 --- [o-auto-1-exec-2] c.m.c.service.impl.EmployeeServiceImpl   : Retrieved employee - ID: c0c2293d-16bd-4603-8e08-638a9d18b22c, Position: Developer III, Department: Engineering
+2025-03-31T02:03:44.676-04:00 DEBUG 12876 --- [o-auto-1-exec-2] c.m.c.s.i.ReportingStructureServiceImpl  : Completed structure for John Lennon - Total Reports: 4 (13 ms)
+2025-03-31T02:03:44.682-04:00 DEBUG 12876 --- [o-auto-1-exec-9] c.m.c.controller.EmployeeController      : Requesting employee - ID: 62c1084e-6e34-4630-93fd-9153afb65309
+2025-03-31T02:03:44.682-04:00 DEBUG 12876 --- [o-auto-1-exec-9] c.m.c.service.impl.EmployeeServiceImpl   : Fetching employee record - ID: 62c1084e-6e34-4630-93fd-9153afb65309
+2025-03-31T02:03:44.683-04:00  INFO 12876 --- [o-auto-1-exec-9] c.m.c.service.impl.EmployeeServiceImpl   : Retrieved employee - ID: 62c1084e-6e34-4630-93fd-9153afb65309, Position: Developer II, Department: Engineering
+2025-03-31T02:03:44.683-04:00 DEBUG 12876 --- [o-auto-1-exec-9] c.m.c.controller.EmployeeController      : Successfully fetched employee - ID: 62c1084e-6e34-4630-93fd-9153afb65309, Name: Pete Best
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
