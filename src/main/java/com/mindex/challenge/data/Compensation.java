@@ -21,6 +21,8 @@ public class Compensation {
     private double salary;
     private Date effectiveDate;
 
+    public Compensation() {}
+
     /**
      * Constructs a new Compensation record.
      *
