@@ -3,7 +3,6 @@ package com.mindex.challenge.data;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
 /**
  * Represents an employee's compensation details stored in MongoDB.
@@ -16,12 +15,9 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
  */
 public class Compensation {
     @Id
-    // Stores just the ID of the employee
-    private String id;
-
-    @DBRef
-    // Ref to the full employee object
-    private final Employee employee;
+    private String id; 
+    private String employeeId; // Store employeeId directly instead of the Employee reference
+    private final Employee employee; // full employee data when needed
     private final double salary;
     private final Date effectiveDate;
 
@@ -44,9 +40,10 @@ public class Compensation {
             throw new IllegalArgumentException("Effective date cannot be null");
         }
 
+        this.employeeId = employee.getEmployeeId();
         this.employee = employee;
         this.salary = salary;
-        this.effectiveDate = new Date(effectiveDate.getTime()); // Defensive copy
+        this.effectiveDate = new Date(effectiveDate.getTime());
     }
 
     /**
@@ -55,6 +52,14 @@ public class Compensation {
      */
     public String getId() {
         return id;
+    }
+
+    /**
+     * Gets the unique identifier for the employee record.
+     * @return The employee ID
+     */
+    public String getEmployeeId() {
+        return employeeId;
     }
 
     /**

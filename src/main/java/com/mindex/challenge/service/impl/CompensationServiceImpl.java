@@ -47,7 +47,7 @@ public class CompensationServiceImpl implements CompensationService {
         Employee employee = employeeService.read(employeeId);
 
         // Check if compensation already exists
-        Compensation existing = compensationRepository.findByEmployeeEmployeeId(employeeId);
+        Compensation existing = compensationRepository.findByEmployeeId(employeeId);
         if (existing != null) {
             LOG.warn("Compensation already exists for employee ID: {}", employeeId);
             throw new IllegalArgumentException("Compensation already exists for this employee");
@@ -72,7 +72,7 @@ public class CompensationServiceImpl implements CompensationService {
         // Validate employee exists
         employeeService.read(employeeId);
 
-        Compensation compensation = compensationRepository.findByEmployeeEmployeeId(employeeId);
+        Compensation compensation = compensationRepository.findByEmployeeId(employeeId);
         if (compensation == null) {
             LOG.warn("No compensation found for employee ID: {}", employeeId);
             throw new CompensationNotFoundException("No compensation found for employee: " + employeeId);

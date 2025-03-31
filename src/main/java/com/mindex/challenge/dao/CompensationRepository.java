@@ -22,5 +22,5 @@ public interface CompensationRepository extends MongoRepository<Compensation, St
      * @param employeeId The ID of the employee to find compensation for
      * @return The Compensation object or null if not found
      */
-    Compensation findByEmployeeEmployeeId(String employeeId);
+    Compensation findByEmployeeId(String employeeId);
 }
