@@ -183,7 +183,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                     .toList()
             );
         } else {
-            resolved.setDirectReports(Collections.emptyList());
+            resolved.setDirectReports(null);
         }
         
 
