@@ -86,21 +86,53 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
 
         // Resolve direct reports recursively
         if (employee.getDirectReports() != null) {
-            resolved.setDirectReports(
-                employee.getDirectReports().stream()
-                    .map(report -> {
-                        try {
-                            // Fetch and resolve each report
-                            Employee fullReport = employeeService.read(report.getEmployeeId());
-                            return resolveEmployeeHierarchy(fullReport);
-                        } catch (EmployeeNotFoundException e) {
-                            LOG.warn("Missing employee in reporting chain: {}", report.getEmployeeId());
-                            return null;
-                        }
-                    })
-                    .filter(Objects::nonNull)
-                    .toList()
-            );
+            if (employee.getDirectReports().isEmpty()) {
+                // Employee has no reports (set null)
+                resolved.setDirectReports(null);
+            } else {
+                // Employee has reports - resolve them
+                resolved.setDirectReports(
+                    employee.getDirectReports().stream()
+                        .map(report -> {
+                            try {
+                                Employee fullReport = employeeService.read(report.getEmployeeId());
+                                Employee resolvedReport = new Employee();
+                                resolvedReport.setEmployeeId(fullReport.getEmployeeId());
+                                resolvedReport.setFirstName(fullReport.getFirstName());
+                                resolvedReport.setLastName(fullReport.getLastName());
+                                resolvedReport.setPosition(fullReport.getPosition());
+                                resolvedReport.setDepartment(fullReport.getDepartment());
+                                
+                                // Only resolve deeper if reports exist
+                                if (fullReport.getDirectReports() != null) {
+                                    if (fullReport.getDirectReports().isEmpty()) {
+                                        resolvedReport.setDirectReports(null); // No reports
+                                    } else {
+                                        resolvedReport.setDirectReports(
+                                            fullReport.getDirectReports().stream()
+                                                .map(r -> {
+                                                    try {
+                                                        return resolveEmployeeHierarchy(employeeService.read(r.getEmployeeId()));
+                                                    } catch (EmployeeNotFoundException e) {
+                                                        LOG.warn("Missing nested report: {}", r.getEmployeeId());
+                                                        return null;
+                                                    }
+                                                })
+                                                .filter(Objects::nonNull)
+                                                .toList()
+                                        );
+                                    }
+                                }
+                                return resolvedReport;
+                            } catch (EmployeeNotFoundException e) {
+                                LOG.warn("Missing employee in reporting chain: {}", report.getEmployeeId());
+                                return null;
+                            }
+                        })
+                        .filter(Objects::nonNull)
+                        .toList()
+                );
+            }
         }
 
         return resolved;
