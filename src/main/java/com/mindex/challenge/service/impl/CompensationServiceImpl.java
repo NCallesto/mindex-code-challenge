@@ -1,5 +1,6 @@
 package com.mindex.challenge.service.impl;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.Objects;
 
@@ -113,17 +114,27 @@ public class CompensationServiceImpl implements CompensationService {
         resolved.setPosition(employee.getPosition());
         resolved.setDepartment(employee.getDepartment());
 
-        // Resolve direct reports recursively if they exist
+        // Resolve only the direct reports recursively if they exist
         if (employee.getDirectReports() != null) {
             resolved.setDirectReports(
                 employee.getDirectReports().stream()
                     .map(report -> {
                         try {
-                            // Fetch and resolve each report
-                            Employee fullReport = employeeService.read(report.getEmployeeId());
-                            return resolveEmployeeHierarchy(fullReport);
+                            Employee directReport = employeeService.read(report.getEmployeeId());
+                            // Create a simplified version without nested reports
+                            // The reporting structure is not needed here, just the basic info
+                            // Hide the direct reports of any direct report
+                            Employee simplified = new Employee();
+                            simplified.setEmployeeId(directReport.getEmployeeId());
+                            simplified.setFirstName(directReport.getFirstName());
+                            simplified.setLastName(directReport.getLastName());
+                            simplified.setPosition(directReport.getPosition());
+                            simplified.setDepartment(directReport.getDepartment());
+                            // Explicit empty list ([]) instead of null 
+                            simplified.setDirectReports(Collections.emptyList());
+                            return simplified;
                         } catch (EmployeeNotFoundException e) {
-                            LOG.warn("Missing employee in reporting chain: {}", report.getEmployeeId());
+                            LOG.warn("Missing direct report: {}", report.getEmployeeId());
                             return null;
                         }
                     })
